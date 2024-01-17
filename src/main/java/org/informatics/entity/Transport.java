@@ -48,4 +48,124 @@ public class Transport {
     @ManyToOne
     @JoinColumn(name = "transport_company_id", nullable = false)
     private TransportCompany transportCompany;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getStartPoint() {
+        return startPoint;
+    }
+
+    public void setStartPoint(String startPoint) {
+        this.startPoint = startPoint;
+    }
+
+    public String getEndPoint() {
+        return endPoint;
+    }
+
+    public void setEndPoint(String endPoint) {
+        this.endPoint = endPoint;
+    }
+
+    public LocalDateTime getDepartureDate() {
+        return departureDate;
+    }
+
+    public void setDepartureDate(LocalDateTime departureDate) {
+        this.departureDate = departureDate;
+    }
+
+    public LocalDateTime getArrivalDate() {
+        return arrivalDate;
+    }
+
+    public void setArrivalDate(LocalDateTime arrivalDate) {
+        this.arrivalDate = arrivalDate;
+    }
+
+    public BigDecimal getCost() {
+        return cost;
+    }
+
+    public void setCost(BigDecimal cost) {
+        this.cost = cost;
+    }
+
+    public BigDecimal getCargoWeight() {
+        return cargoWeight;
+    }
+
+    public void setCargoWeight(BigDecimal cargoWeight) {
+        this.cargoWeight = cargoWeight;
+    }
+
+    public Employee getAssignedEmployee() {
+        return assignedEmployee;
+    }
+
+    public void setAssignedEmployee(Employee assignedEmployee) {
+        this.assignedEmployee = assignedEmployee;
+    }
+
+    public Vehicle getAssignedVehicle() {
+        return assignedVehicle;
+    }
+
+    public void setAssignedVehicle(Vehicle assignedVehicle) {
+        this.assignedVehicle = assignedVehicle;
+    }
+
+    public TransportType getTransportType() {
+        return transportType;
+    }
+
+    public void setTransportType(TransportType transportType) {
+        this.transportType = transportType;
+    }
+
+    public TransportCompany getTransportCompany() {
+        return transportCompany;
+    }
+
+    public void setTransportCompany(TransportCompany transportCompany) {
+        this.transportCompany = transportCompany;
+    }
+
+    public Transport() {  }
+
+    public Transport(String startPoint, String endPoint, LocalDateTime departureDate, LocalDateTime arrivalDate, BigDecimal cost, BigDecimal cargoWeight, Employee assignedEmployee, Vehicle assignedVehicle, TransportType transportType, TransportCompany transportCompany) {
+        this.startPoint = startPoint;
+        this.endPoint = endPoint;
+        this.departureDate = departureDate;
+        this.arrivalDate = arrivalDate;
+        this.cost = cost;
+        this.cargoWeight = cargoWeight;
+        this.assignedEmployee = assignedEmployee;
+        this.assignedVehicle = assignedVehicle;
+        this.transportType = transportType;
+        this.transportCompany = transportCompany;
+    }
+
+    @Override
+    public String toString() {
+        return "Transport{" +
+                "id=" + id +
+                ", startPoint='" + startPoint + '\'' +
+                ", endPoint='" + endPoint + '\'' +
+                ", departureDate=" + departureDate +
+                ", arrivalDate=" + arrivalDate +
+                ", cost=" + cost +
+                ", cargoWeight=" + cargoWeight +
+                ", assignedEmployee=" + assignedEmployee +
+                ", assignedVehicle=" + assignedVehicle +
+                ", transportType=" + transportType +
+                ", transportCompany=" + transportCompany +
+                '}';
+    }
 }
