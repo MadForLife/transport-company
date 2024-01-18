@@ -14,7 +14,7 @@ public class Employee extends Person {
     @Column(name = "employee_salary", precision = 8, scale = 2, nullable = false)
     private BigDecimal employeeSalary;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "transport_company_id", nullable = false)
     private TransportCompany transportCompany;
 

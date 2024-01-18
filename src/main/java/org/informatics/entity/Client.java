@@ -12,7 +12,7 @@ public class Client extends Person {
     @Column(name = "client_address", nullable = false)
     private String address;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "transport_company_id", nullable = false)
     private TransportCompany transportCompany;
 

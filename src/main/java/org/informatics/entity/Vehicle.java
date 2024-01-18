@@ -23,15 +23,15 @@ public class Vehicle {
     @Column(name = "vehicle_cargo_capacity", precision = 8, scale = 2, nullable = false)
     private BigDecimal cargoCapacity;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "vehicle_type_id", nullable = false)
     private VehicleType vehicleType;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "required_qualification_id", nullable = false)
     private Qualification requiredQualification;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "transport_company_id", nullable = false)
     private TransportCompany transportCompany;
 

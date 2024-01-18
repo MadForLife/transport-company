@@ -33,19 +33,19 @@ public class Transport {
     @Column(name = "transport_cargo_weight", precision = 8, scale = 2, nullable = false)
     private BigDecimal cargoWeight;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "assigned_employee_id", nullable = false)
     private Employee assignedEmployee;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "assigned_vehicle_id", nullable = false)
     private Vehicle assignedVehicle;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "transport_type_id", nullable = false)
     private TransportType transportType;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "transport_company_id", nullable = false)
     private TransportCompany transportCompany;
 

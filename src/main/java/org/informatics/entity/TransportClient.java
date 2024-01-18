@@ -9,12 +9,12 @@ public class TransportClient {
     @EmbeddedId
     private TransportClientKey transportClientKey;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("transportId")
     @JoinColumn(name = "transport_transport_id")
     private Transport transport;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("clientId")
     @JoinColumn(name = "client_client_id")
     private Client client;
