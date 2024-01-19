@@ -13,6 +13,7 @@ import org.informatics.entity.TransportCompany;
 import org.informatics.util.TransportCompanyConverterUtil;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class TransportCompanyDaoImpl implements TransportCompanyDao {
@@ -379,5 +380,35 @@ public class TransportCompanyDaoImpl implements TransportCompanyDao {
             employeeIncome = query.getResultList();
         }
         return employeeIncome;
+    }
+
+    @Override
+    public TransportCompanyPeriodIncomeDTO calculateIncomeBetweenDates(long transportCompanyId, LocalDateTime lowerDateTime, LocalDateTime upperDateTime) {
+        try (Session session = sessionFactory.openSession()) {
+            CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
+            CriteriaQuery<TransportCompanyPeriodIncomeDTO> criteriaQuery = criteriaBuilder
+                    .createQuery(TransportCompanyPeriodIncomeDTO.class);
+
+            Root<Transport> transportRoot = criteriaQuery.from(Transport.class);
+            Join<Transport, TransportCompany> transportCompanyJoin = transportRoot.join("transportCompany");
+
+            Expression<BigDecimal> sumIncome = criteriaBuilder.sum(transportRoot.get("cost"));
+            Predicate betweenDates = criteriaBuilder.between(transportRoot.get("departureDate"), lowerDateTime, upperDateTime);
+            Predicate companyIdEquals = criteriaBuilder.equal(transportRoot.get("transportCompany").get("id"), transportCompanyId);
+
+            criteriaQuery.select(
+                    criteriaBuilder.construct(
+                            TransportCompanyPeriodIncomeDTO.class,
+                            transportCompanyJoin.get("id"),
+                            transportCompanyJoin.get("name"),
+                            criteriaBuilder.literal(lowerDateTime),
+                            criteriaBuilder.literal(upperDateTime),
+                            sumIncome
+                    )
+            ).where(criteriaBuilder.and(betweenDates, companyIdEquals));
+
+            TypedQuery<TransportCompanyPeriodIncomeDTO> query = session.createQuery(criteriaQuery);
+            return query.getSingleResult();
+        }
     }
 }

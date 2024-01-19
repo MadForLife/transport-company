@@ -55,4 +55,13 @@ public class Qualification {
         this.signature = signature;
         this.description = description;
     }
+
+    @Override
+    public String toString() {
+        return "Qualification{" +
+                "id=" + id +
+                ", signature='" + signature + '\'' +
+                ", description='" + description + '\'' +
+                '}';
+    }
 }

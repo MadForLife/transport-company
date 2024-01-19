@@ -4,6 +4,8 @@ import org.informatics.dto.*;
 import org.informatics.entity.TransportCompany;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public interface TransportCompanyDao {
@@ -27,7 +29,6 @@ public interface TransportCompanyDao {
     BigDecimal totalRevenueOfCarriedOutTransports(long transportCompanyId);
     List<EmployeeTransportCountDto> totalNumberOfTransportsByDrivers(long transportCompanyId);
     List<TransportCompanyEmployeeIncomeDto> calculateEmployeeIncomeByCompany(long transportCompanyId);
-
-
+    TransportCompanyPeriodIncomeDTO calculateIncomeBetweenDates(long transportCompanyId, LocalDateTime lowerDateTime, LocalDateTime upperDateTime);
 
 }

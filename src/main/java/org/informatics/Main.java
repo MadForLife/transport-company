@@ -1,5 +1,6 @@
 package org.informatics;
 
+import org.apache.logging.log4j.core.util.JsonUtils;
 import org.hibernate.SessionFactory;
 import org.informatics.configuration.SessionFactoryUtil;
 import org.informatics.dao.*;
@@ -8,6 +9,7 @@ import org.informatics.dto.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class Main {
@@ -52,6 +54,34 @@ public class Main {
 
         List<TransportCompanyEmployeeIncomeDto> employeeIncome = transportCompanyDao.calculateEmployeeIncomeByCompany(2);
         employeeIncome.forEach(System.out::println);
+
+        List<EmployeeQualificationDto> sortedByQualification = employeeDao.sortByQualificationASC();
+        sortedByQualification.forEach(System.out::println);
+
+        List<EmployeeQualificationDto> filteredByQualification = employeeDao.filterByQualificationASC("CDL-A");
+        filteredByQualification.forEach(System.out::println);
+
+        List<EmployeeSalaryDto> sortedBySalary = employeeDao.sortBySalaryASC();
+        sortedBySalary.forEach(System.out::println);
+
+        List<EmployeeSalaryDto> filteredBySalaryGreaterThan = employeeDao.filterBySalaryGreaterOrEqualTo(BigDecimal.valueOf(45000.01));
+        filteredBySalaryGreaterThan.forEach(System.out::println);
+
+        List<EmployeeSalaryDto> filteredBySalaryLessThan = employeeDao.filterBySalaryLessOrEqualTo(BigDecimal.valueOf(49999.00));
+        filteredBySalaryLessThan.forEach(System.out::println);
+
+        TransportCompanyPeriodIncomeDTO periodIncomeDTO = transportCompanyDao.calculateIncomeBetweenDates(
+                2L,
+                LocalDateTime.of(2024, 1, 21, 6, 0, 0),
+                LocalDateTime.of(2024, 1, 22, 9, 0, 0));
+
+        System.out.println(periodIncomeDTO);
+
+        List<TransportDestinationDto> sortedByDestination = transportDao.sortByDestinationASC();
+        sortedByDestination.forEach(System.out::println);
+
+        List<TransportDestinationDto> filteredByDestination = transportDao.filterByDestinationASC("City B");
+        filteredByDestination.forEach(System.out::println);
 
     }
 
