@@ -1,6 +1,9 @@
 package org.informatics.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 
 import java.util.Set;
 
@@ -13,9 +16,15 @@ public class TransportType {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message = "Transport Type cannot be blank!")
+    @Size(min = 2, message = "Transport type has to be at least 2 characters!")
+    @Pattern(regexp = "[A-Z]*", message = "Transport type must be with capital letters only!")
     @Column(name = "transport_type", length = 20, nullable = false)
     private String type;
 
+
+    @NotBlank(message = "Transport Type description cannot be blank!")
+    @Pattern(regexp = "^[A-z].*", message = "Transport type description must start with capital letter!")
     @Column(name = "transport_type_description", length = 200, nullable = false)
     private String description;
 

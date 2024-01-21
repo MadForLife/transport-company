@@ -1,6 +1,7 @@
 package org.informatics.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 
 import java.math.BigDecimal;
 import java.util.Set;
@@ -14,12 +15,19 @@ public class Vehicle {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message = "License plate cannot be blank!")
+    @Size(min = 8, message = "License plate has to be at least 8 characters!")
+    @Pattern(regexp = "[A-Z0-9]*", message = "License plate has to be with capital letters only!")
     @Column(name = "vehicle_license_plate", length = 10, nullable = false)
     private String licensePlate;
 
+    @Positive
+    @DecimalMin(value = "2", message = "Seating capacity has to be at least 2")
     @Column(name = "vehicle_seating_capacity", nullable = false)
     private Short seatingCapacity;
 
+    @Positive
+    @DecimalMin(value = "100", message = "Cargo capacity has to be at least 100")
     @Column(name = "vehicle_cargo_capacity", precision = 8, scale = 2, nullable = false)
     private BigDecimal cargoCapacity;
 

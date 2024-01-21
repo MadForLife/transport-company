@@ -1,6 +1,9 @@
 package org.informatics.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.PastOrPresent;
+import jakarta.validation.constraints.Pattern;
 
 import java.time.LocalDate;
 
@@ -14,12 +17,17 @@ public class Person {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message = "First name cannot be blank!")
+    @Pattern(regexp = "^[A-Z].*", message = "First name has to start with a capital letter!")
     @Column(name = "person_first_name", nullable = false)
     private String firstName;
 
+    @NotBlank(message = "Last name cannot be blank!")
+    @Pattern(regexp = "^[A-Z].*", message = "Last name has to start with a capital letter!")
     @Column(name = "person_last_name", nullable = false)
     private String lastName;
 
+    @PastOrPresent(message = "Birthdate cannot be in the future!")
     @Column(name = "person_birth_date", nullable = false)
     private LocalDate birthDate;
 

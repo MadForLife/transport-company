@@ -1,6 +1,7 @@
 package org.informatics.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 import org.hibernate.metamodel.mapping.EntityAssociationMapping;
 
 import java.math.BigDecimal;
@@ -15,21 +16,32 @@ public class Transport {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message = "Starting point cannot be blank!")
+    @Pattern(regexp = "^[A-Z].*", message = "Starting point has to start with capital letter!")
     @Column(name = "transport_start_point", length = 100, nullable = false)
     private String startPoint;
 
+    @NotBlank(message = "End point cannot be blank!")
+    @Pattern(regexp = "^[A-Z].*", message = "Ending point has to start with capital letter!")
     @Column(name = "transport_end_point", length = 100, nullable = false)
     private String endPoint;
 
+    @FutureOrPresent(message = "Departure date cannot be in the past")
     @Column(name = "transport_departure_date", nullable = false)
     private LocalDateTime departureDate;
 
+
+    @FutureOrPresent(message = "Arrival date cannot be in the past")
     @Column(name = "transport_arrival_date", nullable = false)
     private LocalDateTime arrivalDate;
 
+    @Positive
+    @DecimalMin(value = "0.00", message = "Cost has to be more than or equal to 0.00")
     @Column(name = "transport_cost", precision = 8, scale = 2, nullable = false)
     private BigDecimal cost;
 
+    @Positive
+    @DecimalMin(value = "0.00", message = "Cargo weight has to be more than or equal to 0.00")
     @Column(name = "transport_cargo_weight", precision = 8, scale = 2, nullable = false)
     private BigDecimal cargoWeight;
 

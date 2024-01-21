@@ -1,6 +1,9 @@
 package org.informatics.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Positive;
 
 import java.util.Set;
 
@@ -13,9 +16,14 @@ public class VehicleType {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message = "Vehicle type cannot be blank!")
+    @Pattern(regexp = "[A-Z0-9]*", message = "Vehicle type has to be all capital letters!")
     @Column(name = "vehicle_type", length = 20, nullable = false)
     private String type;
 
+
+    @NotBlank(message = "Vehicle description cannot be blank!")
+    @Pattern(regexp = "^[A-Z].*", message = "Vehicle description has to start with capital letter!")
     @Column(name = "vehicle_type_description", length = 200, nullable = false)
     private String description;
 

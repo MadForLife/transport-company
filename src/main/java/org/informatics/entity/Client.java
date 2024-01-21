@@ -1,6 +1,8 @@
 package org.informatics.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 import java.time.LocalDate;
 
@@ -9,6 +11,8 @@ import java.time.LocalDate;
 @PrimaryKeyJoinColumn(name = "client_id")
 public class Client extends Person {
 
+    @NotBlank(message = "Client address cannot be blank!")
+    @Size(min = 6, message = "Client address must be at least 6 characters")
     @Column(name = "client_address", nullable = false)
     private String address;
 

@@ -1,6 +1,8 @@
 package org.informatics.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 
 import java.util.Set;
 
@@ -13,9 +15,13 @@ public class Qualification {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message = "Qualification signature cannot beblank!")
+    @Pattern(regexp = "[A-Z0-9]*", message = "Qualification signature has to be with capital letters only!")
     @Column(name = "qualification_signature", length = 10, nullable = false)
     private String signature;
 
+    @NotBlank(message = "Qualification description cannot be blank!")
+    @Pattern(regexp = "^[A-Z].*", message = "Qualification description has to start with a capital letter!")
     @Column(name = "qualification_description", nullable = false)
     private String description;
 

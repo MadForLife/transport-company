@@ -1,6 +1,10 @@
 package org.informatics.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.DecimalMax;
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Positive;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -11,6 +15,9 @@ import java.util.Set;
 @PrimaryKeyJoinColumn(name = "employee_id")
 public class Employee extends Person {
 
+    @Positive
+    @DecimalMin(value = "1000.00", message = "Salary has to be more than or equal to 1000.00!")
+    @DecimalMax(value = "5000.00", message = "Salary has to be less than or equal to 5000.00!")
     @Column(name = "employee_salary", precision = 8, scale = 2, nullable = false)
     private BigDecimal employeeSalary;
 
